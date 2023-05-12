@@ -7,10 +7,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TRAEFIK_CONFIG_DIRECTORY = str(os.getenv('TRAEFIK_CONFIG_DIRECTORY'))
-TRAEFIK_DYNAMIC_CONFIG = str(os.getenv('TRAEFIK_DYNAMIC_CONFIG'))
+TRAEFIK_CONFIG_FILE = str(os.getenv('TRAEFIK_CONFIG_FILE'))
+TRAEFIK_DYNAMIC_CONFIG = TRAEFIK_CONFIG_DIRECTORY + '/' + TRAEFIK_CONFIG_FILE
 
 app = FastAPI()
-
 
 @app.get("/")
 async def root():
