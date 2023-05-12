@@ -1,0 +1,70 @@
+## DYNAMIC CONFIGURATION
+http:
+  routers:
+    vex-nodeos:
+      rule: "( Host(`api.vex.proit.id`) || Host(`api.databisnis.id`) ) && PathPrefix(`/v1/chain`)"
+      #rule: "Host(`api.vex.proit.id`)"
+      service: vex-nodeos-backend
+      priority: 1000
+      entryPoints:
+        - web
+        - web-8083
+    vex-nodeos-https:
+      rule: "( Host(`api.vex.proit.id`) || Host(`api.databisnis.id`) ) && PathPrefix(`/v1/chain`)"
+      service: vex-nodeos-backend
+      priority: 1000
+      entryPoints:
+        - websecure
+      tls:
+        certresolver: letsencrypt
+    vex-history:
+      rule: "Host(`api.vex.proit.id`) && PathPrefix(`/v1/history`)"
+      service: vex-history-backend
+      entryPoints:
+        - web
+        - web-8083
+    vex-api:
+      rule: "Host(`api.vex.proit.id`) && PathPrefix(`/api/v1`)"
+      service: vex-api-backend
+      entryPoints:
+        - web
+        - web-8083
+  services:
+    vex-nodeos-backend:
+      loadBalancer:
+        healthCheck:
+            path: /v1/chain/get_info
+            interval: "30s"
+            timeout: "3s"
+        servers:
+            #- url: "http://isp.proit.id:8089"
+          - url: "http://server1.saltis.id:8089"
+          - url: "http://server2.saltis.id:8092"
+                  #- url: "http://api.databisnis.id:8092"
+                  #- url: "https://dejaveapi.com"
+                  #- url: "http://209.97.162.124:8080"
+    vex-history-backend:
+      loadBalancer:
+        healthCheck:
+            path: /v1/history/get_accounts
+            interval: "30s"
+            timeout: "3s"
+        servers:
+            #    - url: "http://server2a.saltis.id:3333"
+            #    - url: "http://server1a.saltis.id:3333"
+            #    - url: "https://explorer.vexanium.com:6960"
+            #    - url: "http://209.97.162.124:8080"
+            # - url: "http://server1a.saltis.id"
+            #    - url: "http://server1a.saltis.id:3333"
+            #    - url: "http://server2a.saltis.id:3333"
+            #- url: "https://dejaveapi.com"
+    vex-api-backend:
+      loadBalancer:
+        servers:
+            - url: "http://isp.proit.id:8089"
+http:
+  middlewares:
+    https-force:
+      redirectScheme:
+        scheme: https
+        permanent: true
