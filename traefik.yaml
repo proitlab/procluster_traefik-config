@@ -37,12 +37,8 @@ http:
             interval: "30s"
             timeout: "3s"
         servers:
-            #- url: "http://isp.proit.id:8089"
           - url: "http://server1.saltis.id:8089"
           - url: "http://server2.saltis.id:8092"
-                  #- url: "http://api.databisnis.id:8092"
-                  #- url: "https://dejaveapi.com"
-                  #- url: "http://209.97.162.124:8080"
     vex-history-backend:
       loadBalancer:
         healthCheck:
@@ -50,19 +46,11 @@ http:
             interval: "30s"
             timeout: "3s"
         servers:
-            #    - url: "http://server2a.saltis.id:3333"
-            #    - url: "http://server1a.saltis.id:3333"
-            #    - url: "https://explorer.vexanium.com:6960"
-            #    - url: "http://209.97.162.124:8080"
-            # - url: "http://server1a.saltis.id"
-            #    - url: "http://server1a.saltis.id:3333"
-            #    - url: "http://server2a.saltis.id:3333"
-            #- url: "https://dejaveapi.com"
+          - url: "https://dejaveapi.com"
     vex-api-backend:
       loadBalancer:
         servers:
             - url: "http://isp.proit.id:8089"
-http:
   middlewares:
     https-force:
       redirectScheme:

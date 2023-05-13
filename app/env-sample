@@ -1,3 +1,4 @@
 TRAEFIK_CONFIG_DIRECTORY = '/opt/docker/swarm/traefik/config'
 TRAEFIK_DYNAMIC_CONFIG = 'traefik.yaml'
+PROCLUSTER_ID = ''
 
